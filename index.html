@@ -10,17 +10,23 @@
   <script src="p5.play.js"></script>
 
   <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/6.3.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.0/firebase-database.js"></script> -->
 
 
   <script>
     //Your web app's Firebase configuration
-   
-    // // Initialize Firebase
-    // firebase.initializeApp(firebaseConfig);
+    var firebaseConfig = {
+      apiKey: "AIzaSyDX5gPA6QufxtnpO8MbPvV6q4NkEJPQR2Q",
+      authDomain: "light-bag.firebaseapp.com",
+      databaseURL: "https://light-bag.firebaseio.com",
+      projectId: "light-bag",
+      storageBucket: "light-bag.appspot.com",
+      messagingSenderId: "143171160724",
+      appId: "1:143171160724:web:4fe652cce8f0d8b1b68281"
+    };
 
-    // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
+
   </script>
 
 
@@ -29,6 +35,8 @@
   <script src="Student.js"></script>
   <script src="Teacher.js"></script>
   <script src="Bag.js"></script>
+  <script src="bagData.js"></script>
+  <!-- <script src="index.html"></script> -->
   <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 

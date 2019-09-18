@@ -2,6 +2,8 @@ class Teacher {
     constructor() { }
     addBook() { }
     removeBook() { }
-    viewList() { }
+    viewList() {
+
+    }
 
 }
