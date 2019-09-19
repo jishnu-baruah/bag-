@@ -8,21 +8,11 @@ var form;
 var bag;
 var testRef;
 var test;
-var bag = {
-    book1: {
-        name: "Math book",
-        status: "not required"
-    },
-    book2: {
-        name: "Advance Math book",
-        status: "not required"
-    },
-    book3: {
-        name: "English book",
-        status: "not required"
-    }
-}
-
+var buttonSprite;
+var bag;
+var Buttons = [];
+//var bookButtons = [];
+var clickedSubject;
 var allBooksInfo;
 
 function setup() {
@@ -31,16 +21,23 @@ function setup() {
     app = new App();
     app.getState();
     app.start();
-    testRef = database.ref("test");
-    testRef.on("value", function (data) {
-        test = data.val();
+    // testRef = database.ref("test");
+    // testRef.on("value", function (data) {
+    //     test = data.val();
 
-    });
+    // });
+    // app.createButtons();
+    // console.log(buttons);
 }
 function draw() {
-    console.log(test);
+    // console.log(bag);
     if (user === "student") {
         app.showBooks();
 
     }
+    if (user === "teacher") {
+        app.showSubjectButtons();
+
+    }
+    drawSprites();
 }

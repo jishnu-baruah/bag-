@@ -9,7 +9,7 @@ class Form {
         this.teacherButton.mousePressed(() => {
             user = "teacher"
             console.log(user);
-
+            app.createSubjectButtons();
         })
         this.studentButton.mousePressed(() => {
             user = "student"

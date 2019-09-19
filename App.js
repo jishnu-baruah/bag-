@@ -1,34 +1,103 @@
 class App {
-    constructor() { }
+    constructor() {
+        this.subjectButtons = [];
+        this.bookButtons = [];
+    }
     getState() { }
     updateState() { }
     start() {
         form = new Form();
         form.display();
     }
-    createButtons() {
-        //var subButtons = [];
-        // var bookButtons = [];
+    createSubjectButtons() {
         for (var subject in bag) {
-            var subButtons = [];
+            console.log(subject);
             var subjectName = bag[subject].name;
             var subjectButton = createButton(subjectName);
-            subjectButton.style("visibility", "hidden");
-            //console.log(subject);
-            subButtons.push(subjectButton);
-            for (var book in bag[subject]) {
-                console.log(book);
-                var bookButtons = [];
-                var name = bag[subject][book].name;
-                // console.log(name);
-                var tempButton = createButton(name);
-                tempButton.style("visibility", "hidden");
-                bookButtons.push(tempButton);
-                subButtons.push(bookButtons);
-                Buttons.push(subButtons);
+            this.subjectButtons.push(subjectButton);
+
+        }
+    }
+    showSubjectButtons() {
+        form.hide();
+        var positionY = 120;
+        for (var button of this.subjectButtons) {
+            button.position(displayWidth / 2, positionY);
+            positionY += 40;
+
+            button.mousePressed(function () {
+                //console.log(this);
+                clickedSubject = this.html();
+                console.log(clickedSubject);
+
+            });
+
+        }
+        if (clickedSubject !== undefined) {
+            this.hide();
+            if (this.bookButtons.length === 0) {
+                this.createBookButtons();
+                console.log(this.bookButtons.length);
+            }
+            this.showBookButtons();
+        }
+
+    }
+    createBookButtons() {
+        for (var subject in bag) {
+            if (subject === clickedSubject) {
+                for (var book in bag[subject]) {
+                    if (book !== "name") {
+                        var name = bag[subject][book].name
+                        console.log(book);
+                        var bookButton = createButton(name);
+                        bookButton.style("visibility", "hidden")
+                        this.bookButtons.push(bookButton);
+
+                    }
+                }
             }
         }
     }
+    showBookButtons() {
+        var position = 120;
+        for (var button of this.bookButtons) {
+            button.style("visibility", "visible");
+            button.position(displayWidth / 2, position);
+            position += 40;
+        }
+
+    }
+    hide() {
+        for (var button of this.subjectButtons) {
+            button.hide();
+        }
+    }
+    // createButtons() {
+    //     //var subButtons = [];
+    //     // var bookButtons = [];
+    //     for (var subject in bag) {
+    //         var subButtons = [];
+    //         var bookButtons = [];
+    //         var subjectName = bag[subject].name;
+    //         var subjectButton = createButton(subjectName);
+    //         subjectButton.style("visibility", "hidden");
+    //         //console.log(subject);
+    //         subButtons.push(subjectButton);
+    //         for (var book in bag[subject]) {
+    //             console.log(book);
+
+    //             var name = bag[subject][book].name;
+    //             // console.log(name);
+    //             var tempButton = createButton(name);
+    //             tempButton.style("visibility", "hidden");
+    //             bookButtons.push(tempButton);
+
+    //         }
+    //         subButtons.push(bookButtons);
+    //         Buttons.push(subButtons);
+    //     }
+    // }
 
     showList() {
         console.log(Buttons)
