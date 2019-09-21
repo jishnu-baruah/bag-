@@ -13,14 +13,19 @@ var bag;
 var Buttons = [];
 //var bookButtons = [];
 var clickedSubject;
+var clickedBook;
 var allBooksInfo;
-
+var bag;
+var appState = "start";
 function setup() {
     canvas = createCanvas(displayWidth, displayHeight - 170);
     database = firebase.database();
     app = new App();
     app.getState();
-    app.start();
+
+    BAG = new Bag();
+    BAG.getBooks();
+
     // testRef = database.ref("test");
     // testRef.on("value", function (data) {
     //     test = data.val();
@@ -31,6 +36,9 @@ function setup() {
 }
 function draw() {
     // console.log(bag);
+    if (appState === "start") {
+        app.start();
+    }
     if (user === "student") {
         app.showBooks();
 
@@ -39,5 +47,6 @@ function draw() {
         app.showSubjectButtons();
 
     }
-    drawSprites();
+    // drawSprites();
+
 }

@@ -1,13 +1,15 @@
 class Bag {
     constructor() { }
     calculateAproxWeight() { }
-    static getBooks() {
-        var bagRef = database.ref("test");
-        //console.log(bagRef);
-        bagRef.on("value", function (data) {
+    getBooks() {
+        var bagData = database.ref("bag/").on("value", function (data) {
             bag = data.val();
-            //console.log(bag);
+            //.log(bag);
         })
         //console.log("getBooks");
     }
+    // updateBookStatus(status) {
+    //     database.ref("bag/).update({
+    //         status: status
+    //     })
 }
