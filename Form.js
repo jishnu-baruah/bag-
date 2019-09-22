@@ -7,13 +7,13 @@ class Form {
         this.teacherButton.position(displayWidth / 2 - 40, displayHeight / 2 - 100);
         this.studentButton.position(displayWidth / 2 - 40, displayHeight / 2);
         this.teacherButton.mousePressed(() => {
-            user = "teacher"
-            console.log(user);
-            app.createSubjectButtons();
+            app.appState = "teacher"
+            console.log(app.appState);
+            app.bag.createSubjectButtons();
         })
         this.studentButton.mousePressed(() => {
-            user = "student"
-            console.log(user);
+            app.appState = "student"
+            console.log(app.appState);
             //app.showBooks();
         })
     }
