@@ -2,7 +2,8 @@ class Bag {
     constructor() {
         this.subjectButtons = [];
         this.bookButtons = [];
-        this.extraButtons = [];
+        this.extraMaterials = new ExtraMaterials();
+
     }
 
     calculateAproxWeight() {
@@ -12,7 +13,7 @@ class Bag {
         for (var subject in bag) {
             if (bag[subject].type === "Common") {
                 for (var book in bag[subject]) {
-                    if (book !== "name" && book !== bag[subject].type) {
+                    if (book !== "name" && book !== "type") {
                         if (bag[subject][book].status === 1) {
                             var bookWeight = bag[subject][book].weight;
                             commonBooksWeight = commonBooksWeight + bookWeight;
@@ -22,7 +23,7 @@ class Bag {
             }
             if (bag[subject].type === "Elective") {
                 for (var book in bag[subject]) {
-                    if (book !== "name" && book !== bag[subject].type) {
+                    if (book !== "name" && book !== "type") {
                         if (bag[subject][book].status === 1) {
                             var bookWeight = bag[subject][book].weight;
                             electiveBooksWeight = electiveBooksWeight + bookWeight / 3;
@@ -32,7 +33,7 @@ class Bag {
             }
             if (bag[subject].type === "MIL") {
                 for (var book in bag[subject]) {
-                    if (book !== "name" && book !== bag[subject].type) {
+                    if (book !== "name" && book !== "type") {
                         if (bag[subject][book].status === 1) {
                             var bookWeight = bag[subject][book].weight;
                             milBooksWeight = milBooksWeight + bookWeight / 2;
@@ -61,9 +62,11 @@ class Bag {
     createSubjectButtons() {
         for (var subject in bag) {
             var subjectName = bag[subject].name;
-            var subjectButton = createButton(subjectName);
-            this.subjectButtons.push(subjectButton);
-            console.log(subject);
+            if (subjectName !== "Extra materials") {
+                var subjectButton = createButton(subjectName);
+                this.subjectButtons.push(subjectButton);
+                console.log(subject);
+            }
         }
     }
 
@@ -79,7 +82,7 @@ class Bag {
             });
         }
         if (clickedSubject !== undefined) {
-            this.hide();
+            this.hideSubject();
             if (this.bookButtons.length === 0) {
                 this.createBookButtons();
             }
@@ -92,7 +95,7 @@ class Bag {
         for (var subject in bag) {
             if (subject === clickedSubject) {
                 for (var book in bag[subject]) {
-                    if (book !== "name" && book !== bag[subject].type) {
+                    if (book !== "name" && book !== "type") {
                         var name = bag[subject][book].name
                         var bookButton = createButton(name);
                         bookButton.style("visibility", "hidden");
@@ -105,7 +108,6 @@ class Bag {
                                 bookButton.style('background-color', "green");
                             }
                         })
-
                         this.bookButtons.push(bookButton);
                     }
                 }
@@ -115,6 +117,7 @@ class Bag {
 
 
     showBookButtons() {
+        app.bag.createExtraMaterials
         var position = 120;
         for (var button of this.bookButtons) {
             button.style("visibility", "visible");
@@ -122,22 +125,42 @@ class Bag {
             position += 40;
             button.mousePressed(function () {
                 clickedBook = this.html();
-                app.bag.changeStatus();
-                var status = app.bag.checkStatus();
-                console.log(status);
-                if (status === 1) {
-                    this.style('background-color', "green");
+                if (clickedBook === "Extra materials") {
+                    app.appState = "extraMaterials";
+                    app.bag.extraMaterials.createButtons();
+                    app.bag.hideBooks();
                 }
-                else if (status === 0) {
-                    this.style('background-color', "red");
-                }
+                // app.bag.changeStatus();
+                // var status = app.bag.checkStatus();
+                // console.log(status);
+                // if (this.html() !== "Extra materials") {
+                //     if (status === 1) {
+                //         this.style('background-color', "green");
+                //     }
+                //     else if (status === 0) {
+                //         this.style('background-color', "red");
+                //     }
+                // }
+                // if (this.html() === "Extra materials") {
+                //     app.bag.showExtraMaterials();
+                //     console.log("hi");
+                // }
             })
         }
-        this.createExtraButton();
     }
 
-    hide() {
+    hideSubject() {
         for (var button of this.subjectButtons) {
+            // if (button.html() != "Extra materials") {
+            button.hide();
+            // } else {
+            //     button.position(100, 100);
+            //     button.mousePressed(showExtraMaterials());
+            // };
+        }
+    }
+    hideBooks() {
+        for (var button of this.bookButtons) {
             button.hide();
         }
     }
@@ -146,7 +169,7 @@ class Bag {
         for (var subject in bag) {
             if (subject === clickedSubject) {
                 for (var book in bag[subject]) {
-                    if (book !== "name" && book !== bag[subject].type) {
+                    if (book !== "name" && book !== "type") {
                         if (bag[subject][book].name === clickedBook) {
                             return (bag[subject][book].status)
                         }
@@ -185,40 +208,44 @@ class Bag {
             extraMaterials = data.val();
         })
         for (var materials in extraMaterials) {
-            name = extraMaterials[materials].name;
-            var materialButton = createButton(name);
-            materialButton.style("visibility", "hidden")
-            this.extraButtons.push(materialButton);
-            var statusRef = database.ref("bag/Extra_Materials" + materials + "/").on("value", function (data) {
-                var status = data.val();
-                if (status === 0) {
-                    materialButton.style('background-color', "red");
-                }
-                else if (status === 1) {
-                    materialButton.style('background-color', "green");
-                }
-            })
+            if (materials != "name" && materials != "type") {
+                name = extraMaterials[materials].name;
+                var materialButton = createButton(name);
+                materialButton.style("visibility", "hidden")
+
+                var statusRef = database.ref("bag/Extra_Materials" + materials + "/").on("value", function (data) {
+                    var status = data.val();
+                    if (status === 0) {
+                        materialButton.style('background-color', "red");
+                    }
+                    else if (status === 1) {
+                        materialButton.style('background-color', "green");
+                    }
+                    this.extraButtons.push(materialButton);
+                })
+            }
         }
     }
 
     showExtraMaterials() {
+        console.log(this.extraButtons);
+
         for (var button of this.bookButtons) {
             button.hide();
         }
+        var positionY = 120
         for (button of this.extraButtons) {
-            button.style("visibility", "visible");
-            button.position(300, 300);
-            button.mousePressed(function () {
+            if (button != "name") {
 
-            })
+                button.style("visibility", "visible");
+                button.position(300, positionY);
+                positionY += 40;
+                button.mousePressed(function () {
+                    clickedMaterial = this.html();
+                    console.log(clickedMaterial);
+                })
+            }
         }
     }
 
-    createExtraButton() {
-        this.createExtraMaterials();
-        var extraButton = createButton("Extra materials");
-        extraButton.mousePressed(function () {
-            this.showExtraMaterials();
-        });
-    }
 }

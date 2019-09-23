@@ -18,6 +18,8 @@ class App {
         } else if (this.appState === "student") {
             var student = new Student();
             student.viewBag();
+        } else if (this.appState.appState === "extraMaterils") {
+            this.bag.showExtraMaterials.showBookButtons();
         }
     }
 
