@@ -5,6 +5,7 @@ var database;
 var clickedSubject;
 var clickedBook;
 var weight;
+var extraMaterials;
 
 
 function setup() {

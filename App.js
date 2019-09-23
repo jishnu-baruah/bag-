@@ -13,10 +13,11 @@ class App {
         }
         else if (this.appState === "teacher") {
             this.bag.showSubjectButtons();
-            this.bag.calculateAproxWeight();
+
             this.bag.showWeight();
         } else if (this.appState === "student") {
-            this.bag.showBooks();
+            var student = new Student();
+            student.viewBag();
         }
     }
 

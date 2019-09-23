@@ -2,6 +2,7 @@ class Bag {
     constructor() {
         this.subjectButtons = [];
         this.bookButtons = [];
+        this.extraButtons = [];
     }
 
     calculateAproxWeight() {
@@ -11,7 +12,7 @@ class Bag {
         for (var subject in bag) {
             if (bag[subject].type === "Common") {
                 for (var book in bag[subject]) {
-                    if (book !== name) {
+                    if (book !== "name" && book !== bag[subject].type) {
                         if (bag[subject][book].status === 1) {
                             var bookWeight = bag[subject][book].weight;
                             commonBooksWeight = commonBooksWeight + bookWeight;
@@ -21,7 +22,7 @@ class Bag {
             }
             if (bag[subject].type === "Elective") {
                 for (var book in bag[subject]) {
-                    if (book !== name && book !== type) {
+                    if (book !== "name" && book !== bag[subject].type) {
                         if (bag[subject][book].status === 1) {
                             var bookWeight = bag[subject][book].weight;
                             electiveBooksWeight = electiveBooksWeight + bookWeight / 3;
@@ -31,7 +32,7 @@ class Bag {
             }
             if (bag[subject].type === "MIL") {
                 for (var book in bag[subject]) {
-                    if (book !== name) {
+                    if (book !== "name" && book !== bag[subject].type) {
                         if (bag[subject][book].status === 1) {
                             var bookWeight = bag[subject][book].weight;
                             milBooksWeight = milBooksWeight + bookWeight / 2;
@@ -40,7 +41,7 @@ class Bag {
                 }
             }
         }
-        weight = commonBooksWeight + electiveBooksWeight + milBooksWeight;
+        weight = (commonBooksWeight + electiveBooksWeight + milBooksWeight);
     }
     showWeight() {
         text(weight, 20, 700);
@@ -91,7 +92,7 @@ class Bag {
         for (var subject in bag) {
             if (subject === clickedSubject) {
                 for (var book in bag[subject]) {
-                    if (book !== "name") {
+                    if (book !== "name" && book !== bag[subject].type) {
                         var name = bag[subject][book].name
                         var bookButton = createButton(name);
                         bookButton.style("visibility", "hidden");
@@ -112,6 +113,7 @@ class Bag {
         }
     }
 
+
     showBookButtons() {
         var position = 120;
         for (var button of this.bookButtons) {
@@ -131,6 +133,7 @@ class Bag {
                 }
             })
         }
+        this.createExtraButton();
     }
 
     hide() {
@@ -143,7 +146,7 @@ class Bag {
         for (var subject in bag) {
             if (subject === clickedSubject) {
                 for (var book in bag[subject]) {
-                    if (book !== "name") {
+                    if (book !== "name" && book !== bag[subject].type) {
                         if (bag[subject][book].name === clickedBook) {
                             return (bag[subject][book].status)
                         }
@@ -157,7 +160,7 @@ class Bag {
         for (var subject in bag) {
             if (subject === clickedSubject) {
                 for (var book in bag[subject]) {
-                    if (book !== "name") {
+                    if (book !== "name" && book !== bag[subject].type) {
                         if (bag[subject][book].name === clickedBook) {
                             if (bag[subject][book].status === 0) {
                                 var path = "bag/" + subject + "/" + book + "/"
@@ -177,55 +180,45 @@ class Bag {
         }
     }
 
-    showBooks() {
-        app.form.hide();
-        var positionX = 120;
-        var positionY = 180;
-        for (var subject in bag) {
-            textSize(15);
-            text(subject, 100, positionY);
-
-            positionX = 120;
-            positionY += 40;
-            for (var book in bag[subject]) {
-                var path = "bag/" + subject + "/" + book + "/" + "status/";
-                var statusRef = database.ref(path).on("value", function (data) {
-                    var status = data.val();
-                    if (status === 1) {
-                        var path = "bag/" + subject + "/" + book + "/" + "name/"
-                        var nameRef = database.ref(path).on("value", function (data) {
-                            var name = data.val();
-                            textSize(11);
-                            text(name, positionX + 140, positionY - 40);
-                        })
-                        positionX += 100;
-                        //if (positionY % 1000 === 0) {
-
-                        //}
-
-                    }
-                });
-
-
-            }
+    createExtraMaterials() {
+        var extraMaterialsRef = database.ref("bag/Extra_Materials").on("value", function (data) {
+            extraMaterials = data.val();
+        })
+        for (var materials in extraMaterials) {
+            name = extraMaterials[materials].name;
+            var materialButton = createButton(name);
+            materialButton.style("visibility", "hidden")
+            this.extraButtons.push(materialButton);
+            var statusRef = database.ref("bag/Extra_Materials" + materials + "/").on("value", function (data) {
+                var status = data.val();
+                if (status === 0) {
+                    materialButton.style('background-color', "red");
+                }
+                else if (status === 1) {
+                    materialButton.style('background-color', "green");
+                }
+            })
         }
     }
+
+    showExtraMaterials() {
+        for (var button of this.bookButtons) {
+            button.hide();
+        }
+        for (button of this.extraButtons) {
+            button.style("visibility", "visible");
+            button.position(300, 300);
+            button.mousePressed(function () {
+
+            })
+        }
+    }
+
+    createExtraButton() {
+        this.createExtraMaterials();
+        var extraButton = createButton("Extra materials");
+        extraButton.mousePressed(function () {
+            this.showExtraMaterials();
+        });
+    }
 }
-
-
-
-// class Bag {
-//     constructor() { }
-//     calculateAproxWeight() { }
-//     getBooks() {
-//         var bagData = database.ref("bag/").on("value", function (data) {
-//             bag = data.val();
-//             //.log(bag);
-//         })
-//         //console.log("getBooks");
-//     }
-//     // updateBookStatus(status) {
-//     //     database.ref("bag/).update({
-//     //         status: status
-//     //     })
-// }
