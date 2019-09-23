@@ -1,0 +1,324 @@
+{
+  "bag": {
+    "Elective_Computer": {
+      "book1": {
+        "name": "book 1",
+        "status": 0,
+        "weight": 0.9
+      },
+      "copy1": {
+        "name": "CW copy",
+        "status": 0,
+        "weight": 0.6
+      },
+      "copy2": {
+        "name": "Practical copy",
+        "status": 1,
+        "weight": 0.3
+      },
+      "copy3": {
+        "name": "HW copy",
+        "status": 1,
+        "weight": 0.6
+      },
+      "copy4": {
+        "name": "Test copy",
+        "status": 1,
+        "weight": 0.6
+      },
+      "name": "Elective_Computer",
+      "type": "Elective"
+    },
+    "Elective_Geography": {
+      "book1": {
+        "name": "book 1",
+        "status": 1,
+        "weight": 0.9
+      },
+      "copy1": {
+        "name": "HW copy",
+        "status": 1,
+        "weight": 0.6
+      },
+      "copy2": {
+        "name": "Practical copy",
+        "status": 1,
+        "weight": 0.3
+      },
+      "copy3": {
+        "name": "CW copy",
+        "status": 0,
+        "weight": 0.6
+      },
+      "copy4": {
+        "name": "Test copy",
+        "status": 1,
+        "weight": 0.6
+      },
+      "name": "Elective_Geography",
+      "type": "Elective"
+    },
+    "Elective_Mathematics": {
+      "book1": {
+        "name": "book 1",
+        "status": 0,
+        "weight": 0.6
+      },
+      "copy1": {
+        "name": "CW copy",
+        "status": 0,
+        "weight": 0.6
+      },
+      "copy2": {
+        "name": "HW copy",
+        "status": 0,
+        "weight": 0.6
+      },
+      "copy3": {
+        "name": "Test copy",
+        "status": 1,
+        "weight": 0.6
+      },
+      "copy4": {
+        "name": "Practical copy",
+        "status": 1,
+        "weight": 0.3
+      },
+      "name": "Elective_Mathematics",
+      "type": "Elective"
+    },
+    "English": {
+      "book1": {
+        "name": "book 1",
+        "status": 1,
+        "weight": 0.1
+      },
+      "book2": {
+        "name": "book 2",
+        "status": 1,
+        "weight": 0.08
+      },
+      "copy1": {
+        "name": "CW copy",
+        "status": 1,
+        "weight": 0.6
+      },
+      "copy2": {
+        "name": "Grammer copy",
+        "status": 1,
+        "weight": 0.6
+      },
+      "copy3": {
+        "name": "Test copy",
+        "status": 0,
+        "weight": 0.6
+      },
+      "copy4": {
+        "name": "Test copy",
+        "status": 1,
+        "weight": 0.6
+      },
+      "name": "English",
+      "type": "Common"
+    },
+    "Extra_Materials": {
+      "book1": {
+        "name": "Question Bank",
+        "status": 0,
+        "weight": 0.8
+      },
+      "book2": {
+        "name": "Test papers",
+        "status": 0,
+        "weight": 0.8
+      },
+      "copy1": {
+        "name": "Rough copy",
+        "status": 0,
+        "weight": 0.6
+      },
+      "material1": {
+        "name": "Geometry box",
+        "status": 0,
+        "weight": 0.2
+      },
+      "material2": {
+        "name": "Project work",
+        "status": 1,
+        "weight": 0.6
+      },
+      "material3": {
+        "name": "Graph copy",
+        "status": 0,
+        "weight": 0.04
+      },
+      "material4": {
+        "name": "Project tools",
+        "status": 1,
+        "weight": 0.3
+      },
+      "name": "Extra materials",
+      "type": "Common"
+    },
+    "MIL_Assamese": {
+      "book1": {
+        "name": "book 1",
+        "status": 0,
+        "weight": 0.1
+      },
+      "book2": {
+        "name": "book 2",
+        "status": 0,
+        "weight": 0.1
+      },
+      "copy1": {
+        "name": "CW copy",
+        "status": 1,
+        "weight": 0.6
+      },
+      "copy2": {
+        "name": "Grammer copy",
+        "status": 1,
+        "weight": 0.6
+      },
+      "copy3": {
+        "name": "Test copy",
+        "status": 1,
+        "weight": 0.6
+      },
+      "copy4": {
+        "name": "HW copy",
+        "status": 0,
+        "weight": 0.6
+      },
+      "name": "MIL_Assamese",
+      "type": "MIL"
+    },
+    "MIL_Hindi": {
+      "book1": {
+        "name": "book 1",
+        "status": 1,
+        "weight": 0.2
+      },
+      "book2": {
+        "name": "book 2",
+        "status": 1,
+        "weight": 0.2
+      },
+      "copy1": {
+        "name": "CW copy",
+        "status": 1,
+        "weight": 0.6
+      },
+      "copy2": {
+        "name": "Grammer copy",
+        "status": 1,
+        "weight": 0.6
+      },
+      "copy3": {
+        "name": "Test copy",
+        "status": 1,
+        "weight": 0.6
+      },
+      "copy4": {
+        "name": "HW copy",
+        "status": 1,
+        "weight": 0.6
+      },
+      "name": "MIL_Hindi",
+      "type": "MIL"
+    },
+    "Mathematics": {
+      "book1": {
+        "name": "book 1",
+        "status": 1,
+        "weight": 0.9
+      },
+      "copy1": {
+        "name": "CW copy",
+        "status": 1,
+        "weight": 0.3
+      },
+      "copy2": {
+        "name": "HW copy",
+        "status": 1,
+        "weight": 0.3
+      },
+      "copy3": {
+        "name": "Test copy",
+        "status": 1,
+        "weight": 0.6
+      },
+      "copy4": {
+        "name": "Practical copy",
+        "status": 0,
+        "weight": 0.3
+      },
+      "name": "Mathematics",
+      "type": "Common"
+    },
+    "Science": {
+      "book1": {
+        "name": "book 1",
+        "status": 1,
+        "weight": 0.8
+      },
+      "copy1": {
+        "name": "CW copy",
+        "status": 1,
+        "weight": 0.6
+      },
+      "copy2": {
+        "name": "Practical copy",
+        "status": 1,
+        "weight": 0.3
+      },
+      "copy3": {
+        "name": "Test copy",
+        "status": 1,
+        "weight": 0.6
+      },
+      "copy4": {
+        "name": "HW copy",
+        "status": 1,
+        "weight": 0.6
+      },
+      "name": "Science",
+      "type": "Common"
+    },
+    "Social_Science": {
+      "book1": {
+        "name": "book 1",
+        "status": 0,
+        "weight": 0.6
+      },
+      "book2": {
+        "name": "book 2",
+        "status": 1,
+        "weight": 0.6
+      },
+      "book3": {
+        "name": "book 3",
+        "status": 1,
+        "weight": 0.9
+      },
+      "copy1": {
+        "name": "CW copy",
+        "status": 1,
+        "weight": 0.6
+      },
+      "copy2": {
+        "name": "HW copy",
+        "status": 1,
+        "weight": 0.6
+      },
+      "copy3": {
+        "name": "Test copy",
+        "status": 1,
+        "weight": 0.6
+      },
+      "name": "Social_Science",
+      "type": "Common"
+    }
+  }
+}

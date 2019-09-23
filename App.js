@@ -7,19 +7,21 @@ class App {
 
 
     display() {
+        this.bag.calculateAproxWeight();
         if (this.appState === "start" && bag !== undefined) {
             this.form.display();
-            this.bag.calculateAproxWeight();
         }
         else if (this.appState === "teacher") {
             this.bag.showSubjectButtons();
-
             this.bag.showWeight();
+            this.bag.createAutoFillbutton();
+
         } else if (this.appState === "student") {
             var student = new Student();
             student.viewBag();
-        } else if (this.appState.appState === "extraMaterils") {
-            this.bag.showExtraMaterials.showBookButtons();
+        } else if (this.appState === "extraMaterials") {
+            this.bag.extraMaterials.showBookButtons();
+            this.bag.showWeight();
         }
     }
 

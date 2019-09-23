@@ -15,11 +15,14 @@ class Bag {
                 for (var book in bag[subject]) {
                     if (book !== "name" && book !== "type") {
                         if (bag[subject][book].status === 1) {
-                            var bookWeight = bag[subject][book].weight;
+                            var bookWeight = parseInt(bag[subject][book].weight);
                             commonBooksWeight = commonBooksWeight + bookWeight;
+                            // console.log("##", typeof (bookWeight))
+
                         }
                     }
                 }
+
             }
             if (bag[subject].type === "Elective") {
                 for (var book in bag[subject]) {
@@ -42,11 +45,32 @@ class Bag {
                 }
             }
         }
-        weight = (commonBooksWeight + electiveBooksWeight + milBooksWeight);
+        // console.log("1", typeof (commonBooksWeight));
+        // console.log("2", typeof (electiveBooksWeight));
+        // console.log("3", typeof (milBooksWeight));
+        var netWeight = 1 + commonBooksWeight + electiveBooksWeight + milBooksWeight
+        weight = netWeight.toFixed(2);
     }
     showWeight() {
-        text(weight, 20, 700);
-        console.log(weight);
+        textSize(20);
+        var dialog = "";
+
+        if (weight <= 2) {
+            fill("green");
+            dialog = "👍 😊😊😊😊Alright  "
+        } else if (weight > 2 && weight <= 4) {
+            fill(255, 255, 0);
+            dialog = "  😐😐😐Fine .. BUT I will be more happy if it was a little less  "
+        } else if (weight > 4) {
+            fill("red");
+            dialog = "😞 very heavy  "
+        }
+        text(dialog, 100, 500);
+        textSize(30);
+        //fill("black");
+        text("Today's weight : " + weight + "kg", 100, 400)
+        text("Probable student reaction : ", 100, 450);
+        console.log(weight + "kg");
     }
     getBooks() {
         var bagData = database.ref("bag/").on("value", function (data) {
@@ -73,6 +97,7 @@ class Bag {
     showSubjectButtons() {
         app.form.hide();
         var positionY = 120;
+
         for (var button of this.subjectButtons) {
             button.position(displayWidth / 2 - 100, positionY);
             positionY += 40;
@@ -85,6 +110,7 @@ class Bag {
             this.hideSubject();
             if (this.bookButtons.length === 0) {
                 this.createBookButtons();
+                this.extraMaterials.createMaterialsButton();
             }
             this.showBookButtons();
         }
@@ -127,20 +153,19 @@ class Bag {
                 clickedBook = this.html();
                 if (clickedBook === "Extra materials") {
                     app.appState = "extraMaterials";
-                    app.bag.extraMaterials.createButtons();
+                    app.bag.extraMaterials.createBookButton();
                     app.bag.hideBooks();
                 }
-                // app.bag.changeStatus();
-                // var status = app.bag.checkStatus();
-                // console.log(status);
-                // if (this.html() !== "Extra materials") {
-                //     if (status === 1) {
-                //         this.style('background-color', "green");
-                //     }
-                //     else if (status === 0) {
-                //         this.style('background-color', "red");
-                //     }
-                // }
+                app.bag.changeStatus();
+                var status = app.bag.checkStatus();
+                console.log(status);
+                if (status === 1) {
+                    this.style('background-color', "green");
+                }
+                else if (status === 0) {
+                    this.style('background-color', "red");
+                }
+
                 // if (this.html() === "Extra materials") {
                 //     app.bag.showExtraMaterials();
                 //     console.log("hi");
@@ -171,7 +196,7 @@ class Bag {
                 for (var book in bag[subject]) {
                     if (book !== "name" && book !== "type") {
                         if (bag[subject][book].name === clickedBook) {
-                            return (bag[subject][book].status)
+                            return (bag[subject][book].status);
                         }
                     }
                 }
@@ -227,25 +252,39 @@ class Bag {
         }
     }
 
-    showExtraMaterials() {
-        console.log(this.extraButtons);
-
-        for (var button of this.bookButtons) {
-            button.hide();
-        }
-        var positionY = 120
-        for (button of this.extraButtons) {
-            if (button != "name") {
-
-                button.style("visibility", "visible");
-                button.position(300, positionY);
-                positionY += 40;
-                button.mousePressed(function () {
-                    clickedMaterial = this.html();
-                    console.log(clickedMaterial);
-                })
+    createAutoFillbutton() {
+        var removeButton = createButton("Remove");
+        removeButton.position(1200, 20);
+        removeButton.mousePressed(function () {
+            for (var subject in bag) {
+                if (bag[subject].name !== "Extra materials") {
+                    for (var book in bag[subject]) {
+                        if (book !== "name" && book !== "type") {
+                            var path = "bag/" + subject + "/" + book + "/"
+                            database.ref(path).update({
+                                "status": 0
+                            })
+                        }
+                    }
+                }
             }
-        }
-    }
+        })
 
+        var addButton = createButton("Add");
+        addButton.position(1270, 20);
+        addButton.mousePressed(function () {
+            for (var subject in bag) {
+                if (bag[subject].name !== "Extra materials") {
+                    for (var book in bag[subject]) {
+                        if (book !== "name" && book !== "type") {
+                            var path = "bag/" + subject + "/" + book + "/"
+                            database.ref(path).update({
+                                "status": 1
+                            })
+                        }
+                    }
+                }
+            }
+        })
+    }
 }

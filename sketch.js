@@ -5,7 +5,6 @@ var database;
 var clickedSubject;
 var clickedBook;
 var weight;
-var extraMaterials;
 var clickedMaterial;
 
 
